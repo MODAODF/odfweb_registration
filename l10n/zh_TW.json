@@ -36,11 +36,14 @@
     "The username you have chosen already exists." : "該帳號已經有人使用了。",
     "Your account has been successfully created, but it still needs approval from an administrator." : "您的帳號已經建立成功，但仍需網站管理者審核啟用。",
     "A new user \"%s\" has created an account on %s and awaits admin approbation" : "新使用者「%s」已在 %s 完成註冊，正等候管理者審核。",
+    "A new user \"%s\" has created an account on %s" : "新使用者「%s」已在 %s 完成註冊",
     "Back to previous page" : "回上一頁",
     "Incorrect verification code!" : "驗證碼不正確！",
     "Back to login page" : "回登入頁",
     "Invalid verification URL. No registration request with this verification URL is found." : "驗證網址無效",
     "Confirm password" : "確認密碼",
-    "Passwords do not match" : "兩次密碼不一致"
+    "Passwords do not match" : "兩次密碼不一致",
+    "The account import is abnormal. The mail server may be set incorrectly." : "帳號匯入發生異常情況，可能是郵件伺服器設定不正確。",
+    "Batch import of accounts is complete" : "帳號批次匯入完畢","The following error occurred, please check before uploading" : "發生下列錯誤，請檢查後，再上傳"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
