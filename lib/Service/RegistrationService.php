@@ -393,6 +393,17 @@ class RegistrationService {
 	}
 
 	/**
+	 * @param $email
+	 */
+	public function deleteByEmail($email) {
+		try {
+			$registration =  $this->registrationMapper->find($email);//if not found DB will throw a exception
+			$this->registrationMapper->delete($registration);
+		} catch (DoesNotExistException $e) {
+		}
+	}
+
+	/**
 	 * Return a 25 digit device password
 	 *
 	 * Example: AbCdE-fGhIj-KlMnO-pQrSt-12345

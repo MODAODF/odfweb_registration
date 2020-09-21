@@ -10,6 +10,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\IUserManager;
 use OCP\IGroupManager;
+use OCP\IL10N;
 
 class CsvController extends Controller {
 
@@ -38,18 +39,15 @@ class CsvController extends Controller {
 	private $registrationService;
 	/** @var MailService */
 	private $mailService;
-
-
-	// 讀取此機關的 CSV 欄位資料
-	private $organName = 'eland';
-
-	private $logFile = './registerUser-log.txt';
+	/** @var IL10N */
+	private $l10n;
 
 	public function __construct(
 		$AppName,
 		IRequest $request ,
 		RegistrationService $registrationService,
-		MailService $mailService
+		MailService $mailService,
+		IL10N $l10n
 	) {
 		parent::__construct($AppName, $request);
 
@@ -57,6 +55,7 @@ class CsvController extends Controller {
 		$this->userManager = \OC::$server->getUserManager();
 		$this->registrationService = $registrationService;
 		$this->mailService = $mailService;
+		$this->l10n = $l10n;
 
 		// CSV -> array
 		$this->csvArr = null;
@@ -207,10 +206,8 @@ class CsvController extends Controller {
 		if (!empty($invalidMsg)) {
 			return new DataResponse([
 				'data' => [
-					'message' => '發生下列錯誤，請檢查後，再上傳',
-					'reason' => $invalidMsg,
-					'validUsers' => $userLists,
-					'groupLists' => $groupLists
+					'message' => $this->l10n->t('The following error occurred, please check before uploading'),
+					'reason' => $invalidMsg
 				],
 				'result' => false,
 			]);
@@ -218,6 +215,7 @@ class CsvController extends Controller {
 
 		// 開始真正匯入資料
 		$result = true;
+		$resultMsg = $this->l10n->t('Batch import of accounts is complete');
 		$this->startTime = mktime();
 		foreach ($userLists as $user) {
 			$email = $user[SELF::EMAIL_NAME];
@@ -227,16 +225,26 @@ class CsvController extends Controller {
 				// 建立註冊資料
 				$registration = $this->registrationService->createRegistration($email, $username, $group, true);
 				$this->mailService->sendTokenByMail($registration);
-			} catch (RegistrationException $e) {
+			} catch (\Exception $e) {
 				// TODO: 例外處理
+				$resultMsg = $this->l10n->t('The account import is abnormal. The mail server may be set incorrectly.')."\n".$e->getMessage();
 				$result = false;
+				break;
 			}
 		}
 		$this->endTime = mktime();
 
+		// 匯入過程若發生錯誤，需將匯入的資料刪除
+		if (!$result) {
+			foreach ($userLists as $user) {
+				$email = $user[SELF::EMAIL_NAME];
+				$this->registrationService->deleteByEmail($email);
+			}
+		}
+
 		return new DataResponse([
 				'data' => [
-					'message' => 'finish CSV list, see userStatus',
+					'message' => $resultMsg,
 				],
 				'result' => $result,
 				'duration' => $this->endTime - $this->startTime,
