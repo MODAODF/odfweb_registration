@@ -74,14 +74,13 @@ $(document).ready(function () {
 		},
 		done: function (e, response) {
 			var resp = response.result;
+			msgResponse.data.message = resp.data.message;
 			console.log(response);
 			if (resp.result) {
 				msgResponse.status = 'success';
-				msgResponse.data.message = '帳號批次匯入完畢';
 				//userStatusUi.list_all = resp.data.userStatus;
 				//userStatusUi.showFinalList();
 			} else {
-				msgResponse.data.message = resp.data.message;
 				if (Array.isArray(resp.data.reason)) {
 					errMsg.html(resp.data.reason.join('<br>')).show();
 				}

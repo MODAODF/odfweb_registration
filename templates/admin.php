@@ -41,8 +41,9 @@ foreach ($_['groups'] as $group) {
 	<h2>帳號批次匯入</h2>
 
 	<p class="setting-hint">
-		上傳的檔案是 csv 格式，utf-8 編碼，共有三個欄位，欄位名稱放在第一列 : ID, email, group<br>
-		欄位需以雙引號刮起來，各欄位間以逗號(,)分隔開，欄位內容不可空白。<br><br>
+		上傳的檔案是 csv 格式，utf-8 編碼，共有三個欄位，欄位名稱放在第一列，分別是: ID, email, group<br>
+		欄位需以雙引號刮起來，各欄位間以逗號(,)分隔開，欄位內容不可空白。<br>
+		<b>請注意！帳號匯入時，會寄發驗證郵件給使用者，請確認郵件伺服器設定正確</b><br><br>
 	</p>
 
 	<form class="uploadForm" method="post" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.csv.uploadFile')) ?>">
