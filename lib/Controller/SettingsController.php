@@ -48,10 +48,10 @@ class SettingsController extends Controller {
 	 * @param string $registered_user_group all newly registered user will be put in this group
 	 * @param string $user_storage_capacity User preset storage capacity
 	 * @param string $allowed_domains Registrations are only allowed for E-Mailadresses with these domains
-	 * @param bool $admin_approval_required newly registered users have to be validated by an admin
+	 * @param bool $auto_account_active newly registered users have to be validated by an admin
 	 * @return DataResponse
 	 */
-	public function admin($registered_user_group, $user_storage_capacity, $allowed_domains, $admin_approval_required) {
+	public function admin($registered_user_group, $user_storage_capacity, $allowed_domains, $auto_account_active) {
 		// handle domains
 		if (($allowed_domains==='') || ($allowed_domains === null)) {
 			$this->config->deleteAppValue($this->appName, 'allowed_domains');
@@ -63,7 +63,7 @@ class SettingsController extends Controller {
 		$this->config->setAppValue($this->appName, 'user_storage_capacity', $user_storage_capacity);
 
 		// handle admin validation
-		$this->config->setAppValue($this->appName, 'admin_approval_required', $admin_approval_required ? "yes" : "no");
+		$this->config->setAppValue($this->appName, 'admin_approval_required', $auto_account_active ? "no" : "yes");
 
 		// handle groups
 		$groups = $this->groupmanager->search('');
@@ -125,7 +125,8 @@ class SettingsController extends Controller {
 			'user_storage_capacity' => $user_storage_capacity,
 			'current' => $current_value,
 			'allowed' => $allowed_domains,
-			'approval_required' => $admin_approval_required
+			'approval_required' => $admin_approval_required,
+			'auto_account_active' => ($admin_approval_required === "yes" ? 'no' : 'yes')
 		], '');
 	}
 }

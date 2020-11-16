@@ -30,10 +30,10 @@ foreach ($_['groups'] as $group) {
 	</p>
 
 	<p style="margin-bottom:12px">
-	<input type="checkbox" class="checkbox" id="admin_approval_required" name="admin_approval_required" <?php if ($_['approval_required'] === "yes") {
+	<input type="checkbox" class="checkbox" id="auto_account_active" name="auto_account_active" <?php if ($_['auto_account_active'] === "yes") {
 	echo " checked";
 } ?>>
-	<label for="admin_approval_required">&nbsp;<?php p($l->t('Require admin approval?')); ?>
+	<label for="auto_account_active">&nbsp;<?php p($l->t('Automatic account activation')); ?>
 	</label>
 	</p>
 </form>
@@ -42,7 +42,7 @@ foreach ($_['groups'] as $group) {
 
 	<p class="setting-hint">
 		上傳的檔案是 csv 格式，utf-8 編碼，共有三個欄位，欄位名稱放在第一列，分別是: ID, email, group<br>
-		欄位需以雙引號刮起來，各欄位間以逗號(,)分隔開，欄位內容不可空白。<br>
+		欄位需以雙引號括起來，各欄位間以逗號(,)分隔開，欄位內容不可空白。<br>
 		<b>請注意！帳號匯入時，會寄發驗證郵件給使用者，請確認郵件伺服器設定正確</b><br><br>
 	</p>
 

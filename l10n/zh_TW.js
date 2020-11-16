@@ -26,6 +26,7 @@ OC.L10N.register(
     "User preset storage capacity" : "使用者儲存空間配額",
     "Allowed mail address domains for registration" : "允許註冊的電子郵件網域名稱",
     "Require admin approval?" : "新註冊者需管理者審核啟用",
+    "Automatic account activation" : "自動啟用帳號",
     "You will receive an email with a verification link" : "您將會收到要求驗證的電子郵件",
     "Request verification link" : "送出註冊申請",
     "Click the picture to change the verification code" : "點擊圖片可更換驗證碼",
