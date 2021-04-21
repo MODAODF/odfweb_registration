@@ -216,7 +216,7 @@ class CsvController extends Controller {
 		// 開始真正匯入資料
 		$result = true;
 		$resultMsg = $this->l10n->t('Batch import of accounts is complete');
-		$this->startTime = mktime();
+		$this->startTime = time();
 		foreach ($userLists as $user) {
 			$email = $user[SELF::EMAIL_NAME];
 			$username = $user[SELF::ID_NAME];
@@ -232,7 +232,7 @@ class CsvController extends Controller {
 				break;
 			}
 		}
-		$this->endTime = mktime();
+		$this->endTime = time();
 
 		// 匯入過程若發生錯誤，需將匯入的資料刪除
 		if (!$result) {
