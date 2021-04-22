@@ -28,7 +28,7 @@ $(document).ready(function() {
         OC.msg.finishedError('#registration_settings_msg', data.responseJSON.message);
       },
       complete: function(){
-        $('#registration_settings_form').toggle(value)
+        $('#registration_settings_form > div:first-child').toggle(value)
       }
     });
   }

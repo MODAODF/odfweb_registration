@@ -10,41 +10,44 @@ script('ndcregistration', 'settings');
 		<span id="registration_settings_msg" class="msg" style="margin-top:0;"></span>
 	</p>
 
-	<p style="margin-bottom:40px">
+	<p>
 		<input type="checkbox" class="checkbox" id="registration_enabled" name="registration_enabled" <?php if($_['registration_enabled'] === "yes") {echo " checked"; } ?>>
 		<label for="registration_enabled"><?php p($l->t('Enable Registration')); ?></label>
 	</p>
 
-	<form id="registration_settings_form" <?php if($_['registration_enabled'] === 'no') {echo "class='hidden'";}?>>
-		<p style="margin-bottom:12px">
-		<label for="registered_user_group"><?php p($l->t('Default group that all registered users belong')); ?></label>
-		<select id="registered_user_group" name="registered_user_group">
-			<option value="none" <?php echo $_['current'] === 'none' ? 'selected="selected"' : ''; ?>><?php p($l->t('None')); ?></option>
-			<?php
-			foreach ($_['groups'] as $group) {
-				$selected = $_['current'] === $group ? 'selected="selected"' : '';
-				echo '<option value="'.$group.'" '.$selected.'>'.$group.'</option>';
-			} ?>
-		</select>
-		</p>
-		<p style="margin-bottom:12px">
-		<label for="user_storage_capacity"><?php p($l->t('User preset storage capacity')); ?></label>
-		<input type="text" style="text-align:right;" id="user_storage_capacity" name="user_storage_capacity" value=<?php p($_['user_storage_capacity']);?>> G
-		</p>
-		<p>
-		<label for="allowed_domains"><?php p($l->t('Allowed mail address domains for registration')); ?></label>
-		<input type="text" id="allowed_domains" name="allowed_domains" value=<?php p($_['allowed']);?>>
-		</p>
-		<p style="margin-bottom:12px">
-		<em><?php p($l->t('Enter a semicolon-separated list of allowed domains. Example: owncloud.com;github.com'));?></em>
-		</p>
+	<form id="registration_settings_form" style="margin-top:20px">
+		<div <?php if($_['registration_enabled'] === 'no') {echo "class='hidden'";}?>>
+			<p style="margin-bottom:12px">
+			<label for="registered_user_group"><?php p($l->t('Default group that all registered users belong')); ?></label>
+			<select id="registered_user_group" name="registered_user_group">
+				<option value="none" <?php echo $_['current'] === 'none' ? 'selected="selected"' : ''; ?>><?php p($l->t('None')); ?></option>
+				<?php
+				foreach ($_['groups'] as $group) {
+					$selected = $_['current'] === $group ? 'selected="selected"' : '';
+					echo '<option value="'.$group.'" '.$selected.'>'.$group.'</option>';
+				} ?>
+			</select>
+			</p>
+			<p style="margin-bottom:12px">
+			<label for="user_storage_capacity"><?php p($l->t('User preset storage capacity')); ?></label>
+			<input type="text" style="text-align:right;" id="user_storage_capacity" name="user_storage_capacity" value=<?php p($_['user_storage_capacity']);?>> G
+			</p>
+			<p>
+			<label for="allowed_domains"><?php p($l->t('Allowed mail address domains for registration')); ?></label>
+			<input type="text" id="allowed_domains" name="allowed_domains" value=<?php p($_['allowed']);?>>
+			</p>
+			<p style="margin-bottom:12px">
+				<em><?php p($l->t('Enter a semicolon-separated list of allowed domains. Example: owncloud.com;github.com'));?></em>
+			</p>
+		</div>
 
-		<p style="margin-bottom:12px">
-		<input type="checkbox" class="checkbox" id="auto_account_active" name="auto_account_active" <?php if ($_['auto_account_active'] === "yes") {echo " checked";} ?>>
-		<label for="auto_account_active">&nbsp;<?php p($l->t('Automatic account activation')); ?>
-		</label>
+		<p style="margin-top:30px">
+			<input type="checkbox" class="checkbox" id="auto_account_active" name="auto_account_active" <?php if ($_['auto_account_active'] === "yes") {echo " checked";} ?>>
+			<label for="auto_account_active">&nbsp;<?php p($l->t('Automatic account activation')); ?></label>
+			<span><em>（<u>註冊</u>、<u>帳號批次匯入</u>共用設定值）</em></span>
 		</p>
 	</form>
+
 </div>
 
 <div class="section">
