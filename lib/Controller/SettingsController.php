@@ -120,13 +120,32 @@ class SettingsController extends Controller {
 		// handle admin validation (預設需要管理者審核啟用)
 		$admin_approval_required = $this->config->getAppValue($this->appName, 'admin_approval_required', "yes");
 
+		$registration_enabled = $this->config->getAppValue($this->appName, 'registration_enabled', 'yes');
+
 		return new TemplateResponse('ndcregistration', 'admin', [
 			'groups' => $group_id_list,
 			'user_storage_capacity' => $user_storage_capacity,
 			'current' => $current_value,
 			'allowed' => $allowed_domains,
 			'approval_required' => $admin_approval_required,
-			'auto_account_active' => ($admin_approval_required === "yes" ? 'no' : 'yes')
+			'auto_account_active' => ($admin_approval_required === "yes" ? 'no' : 'yes'),
+			'registration_enabled' => $registration_enabled
 		], '');
+	}
+
+	/**
+	 * @AdminRequired
+	 *
+	 * @param string $str
+	 * @return DataResponse
+	 */
+	public function status($str) {
+		$this->config->setAppValue($this->appName, 'registration_enabled', $str);
+		return new DataResponse([
+			'data' => [
+				'message' => (string) $this->l10n->t('Saved')
+			],
+			'status' => 'success'
+		]);
 	}
 }
