@@ -174,11 +174,24 @@ class CsvController extends Controller {
 				// 3. 檢查 group
 				if ($group === '') {
 					$msg[] = '#'.$lineNo.' : 群組空白！';
-				} else { // 紀錄所有群組
-					// 沒有被紀錄過
-					if (!array_key_exists($group, $groupLists)) {
-						// 紀錄該群組是否已存在系統中
-						$groupLists[$group] = $this->groupManager->groupExists($group);
+				} else {
+					// 檢查群組陣列格式
+					if ($groupArr = str_getcsv($group, ',', '"')) {
+						foreach ($groupArr as $g) {
+							$g = trim($g);
+							if(strpos($g, "\n") !== FALSE) {
+								$msg[] = '#'.$lineNo.' : 群組格式錯誤(雙引號)';
+								break;
+							} else {  // 紀錄所有群組
+								// 沒有被紀錄過
+								if (!array_key_exists($g, $groupLists)) {
+									// 紀錄該群組是否已存在系統中
+									$groupLists[$g] = $this->groupManager->groupExists($g);
+								}
+							}
+						}
+					} else {
+						$msg[] = '#'.$lineNo.' : 群組格式錯誤';
 					}
 				}
 			} else if ($rowCount > 0) {

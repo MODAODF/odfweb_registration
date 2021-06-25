@@ -149,21 +149,25 @@ class MailService {
 
 	/**
 	 * @param string $userId
-	 * @param string $userGroupId
+	 * @param array $userGroupId
 	 * @param bool $userIsEnabled
 	 */
-	public function notifyAdmins($userId, $userIsEnabled, $userGroupId) {
+	public function notifyAdmins($userId, $userIsEnabled, $userGroupId = []) {
 		// Notify admin
 		$admin_users = $this->groupManager->get('admin')->getUsers();
 
 		// if the user is disabled and belongs to a group
 		// add subadmins of this group to notification list
-		if (!$userIsEnabled and $userGroupId) {
-			$group = $this->groupManager->get($userGroupId);
-			$subadmin_users = $this->groupManager->getSubAdmin()->getGroupsSubAdmins($group);
-			foreach ($subadmin_users as $user) {
-				if (!in_array($user, $admin_users)) {
-					$admin_users[] = $user;
+		if (!$userIsEnabled and count($userGroupId) > 0) {
+			foreach ($userGroupId as $gid) {
+				// 取得群組子管理員
+				$group = $this->groupManager->get($gid);
+				$subadmin_users = $this->groupManager->getSubAdmin()->getGroupsSubAdmins($group);
+				// 子管理員加入admin通知列表
+				foreach ($subadmin_users as $user) {
+					if (!in_array($user, $admin_users)) {
+						$admin_users[] = $user;
+					}
 				}
 			}
 		}
