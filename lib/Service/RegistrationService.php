@@ -156,6 +156,10 @@ class RegistrationService {
 	 * @throws RegistrationException
 	 */
 	public function validateEmail($email) {
+		if ($email != trim($email)) {
+			throw new RegistrationException($this->l10n->t('The email address cannot start or end with space.'));
+		}
+
 		$this->mailService->validateEmail($email);
 
 		// check for pending registrations
@@ -213,6 +217,10 @@ class RegistrationService {
 
 		if ($this->registrationMapper->usernameIsPending($username) || $this->userManager->get($username) !== null) {
 			throw new RegistrationException($this->l10n->t('The username you have chosen already exists.'));
+		}
+
+		if ($username != trim($username)) {
+			throw new RegistrationException($this->l10n->t('The username cannot start or end with space.'));
 		}
 	}
 

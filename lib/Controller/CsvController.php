@@ -178,10 +178,10 @@ class CsvController extends Controller {
 					// 檢查群組陣列格式
 					if ($groupArr = str_getcsv($group, ',', '"')) {
 						foreach ($groupArr as $g) {
-							$g = trim($g);
-							if(strpos($g, "\n") !== FALSE) {
+							if ($g != trim($g)) {
+								$msg[] = '#'.$lineNo.' ('.$g.') : '.'The group name cannot start or end with space.';
+							} else if(strpos(trim($g), "\n") !== FALSE) {
 								$msg[] = '#'.$lineNo.' : 群組格式錯誤(雙引號)';
-								break;
 							} else {  // 紀錄所有群組
 								// 沒有被紀錄過
 								if (!array_key_exists($g, $groupLists)) {
