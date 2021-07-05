@@ -44,7 +44,7 @@ script('ndcregistration', 'settings');
 		<p style="margin-top:30px">
 			<input type="checkbox" class="checkbox" id="auto_account_active" name="auto_account_active" <?php if ($_['auto_account_active'] === "yes") {echo " checked";} ?>>
 			<label for="auto_account_active">&nbsp;<?php p($l->t('Automatic account activation')); ?></label>
-			<span><em>（<u>註冊</u>、<u>帳號批次匯入</u>共用設定值）</em></span>
+			<span><em>（<b>註冊</b>、<b>帳號批次匯入</b>共用設定值）</em></span>
 		</p>
 	</form>
 
@@ -54,15 +54,15 @@ script('ndcregistration', 'settings');
 	<h2>帳號批次匯入</h2>
 
 	<p class="setting-hint">
-		上傳的檔案是 csv 格式，utf-8 編碼，共有三個欄位，欄位名稱放在第一列，分別是: ID, email, group<br>
-		欄位需以雙引號括起來，各欄位間以逗號(,)分隔開，欄位內容不可空白。<br>
+		上傳的檔案是 CSV 格式，UTF-8 編碼，共有三個欄位，欄位名稱放在第一列，分別是：ID, email, group<br>
+		欄位需以英文半形的雙引號括起來，各欄位間以英文半形的逗號 (,) 分隔，欄位內容不可空白。<br>
 		<b>請注意！帳號匯入時，會寄發驗證郵件給使用者，請確認郵件伺服器設定正確</b><br><br>
 	</p>
 
 	<p style="margin-bottom:30px">
 		<input type="checkbox" class="checkbox" id="allow_duplicate_email" name="allow_duplicate_email" <?php if ($_['allow_duplicate_email'] === "yes") {echo " checked";} ?>>
-		<label for="allow_duplicate_email">允許Eamil重複註冊</label>
-		<span><em>（Email 在未完成註冊流程前可重複註冊）</em></span>
+		<label for="allow_duplicate_email">允許重複的電子郵件註冊</label>
+		<span><em>（電子郵件在未完成註冊流程前可重複註冊）</em></span>
 	</p>
 
 	<form class="uploadForm" method="post" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.csv.uploadFile')) ?>">
