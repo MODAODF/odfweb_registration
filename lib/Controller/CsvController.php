@@ -11,6 +11,7 @@ use OCP\AppFramework\Controller;
 use OCP\IUserManager;
 use OCP\IGroupManager;
 use OCP\IL10N;
+use OCP\IConfig;
 
 class CsvController extends Controller {
 
@@ -41,13 +42,16 @@ class CsvController extends Controller {
 	private $mailService;
 	/** @var IL10N */
 	private $l10n;
+	/** @var IConfig */
+	private $config;
 
 	public function __construct(
 		$AppName,
 		IRequest $request ,
 		RegistrationService $registrationService,
 		MailService $mailService,
-		IL10N $l10n
+		IL10N $l10n,
+		IConfig $config
 	) {
 		parent::__construct($AppName, $request);
 
@@ -56,6 +60,7 @@ class CsvController extends Controller {
 		$this->registrationService = $registrationService;
 		$this->mailService = $mailService;
 		$this->l10n = $l10n;
+		$this->config = $config;
 
 		// CSV -> array
 		$this->csvArr = null;
@@ -165,8 +170,13 @@ class CsvController extends Controller {
 				// 2.檢查 email
 				try {
 					if ($this->registrationService->validateEmail($email) !== true) {
-						$msg[] = '#'.$lineNo.' ('.$email.') : '.'已被使用';
+						throw new RegistrationException('此Email已註冊');
 					}
+					// 檢查 CSV 重複Email
+					if ($this->config->getAppValue($this->appName, 'allow_duplicate_email', "yes") === 'no' && in_array($email, $this->emails, true)) {
+						throw new RegistrationException('CSV含重複的Email');
+					}
+					$this->emails[] = $email;
 				} catch (\Exception $e) {
 					$msg[] = '#'.$lineNo.' ('.$email.') : '.$e->getMessage();
 				}
@@ -251,7 +261,8 @@ class CsvController extends Controller {
 		if (!$result) {
 			foreach ($userLists as $user) {
 				$email = $user[SELF::EMAIL_NAME];
-				$this->registrationService->deleteByEmail($email);
+				$username = $user[SELF::ID_NAME];
+				$this->registrationService->deleteByEmailAndUsername($email, $username);
 			}
 		}
 

@@ -59,6 +59,12 @@ script('ndcregistration', 'settings');
 		<b>請注意！帳號匯入時，會寄發驗證郵件給使用者，請確認郵件伺服器設定正確</b><br><br>
 	</p>
 
+	<p style="margin-bottom:30px">
+		<input type="checkbox" class="checkbox" id="allow_duplicate_email" name="allow_duplicate_email" <?php if ($_['allow_duplicate_email'] === "yes") {echo " checked";} ?>>
+		<label for="allow_duplicate_email">允許Eamil重複註冊</label>
+		<span><em>（Email 在未完成註冊流程前可重複註冊）</em></span>
+	</p>
+
 	<form class="uploadForm" method="post" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.csv.uploadFile')) ?>">
 		<input id="uploadCsv" class="fileupload" name="csvFile" type="file" style="display: none;">
 		<label for="uploadCsv" class="button icon-upload svg" title="Upload CSV"></label>

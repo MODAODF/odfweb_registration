@@ -162,10 +162,13 @@ class RegistrationService {
 
 		$this->mailService->validateEmail($email);
 
-		// check for pending registrations
-		try {
-			return $this->registrationMapper->find($email);//if not found DB will throw a exception
-		} catch (DoesNotExistException $e) {
+		if ($this->config->getAppValue($this->appName, 'allow_duplicate_email', "yes") === 'no') {
+			// check for pending registrations
+			try {
+				$isPending = $this->registrationMapper->find($email);
+				if (count($isPending) > 0) return $isPending;
+			} catch (DoesNotExistException $e) {
+			}
 		}
 
 		if ($this->userManager->getByEmail($email)) {
@@ -406,11 +409,17 @@ class RegistrationService {
 
 	/**
 	 * @param $email
+	 * @param $username
 	 */
-	public function deleteByEmail($email) {
+	public function deleteByEmailAndUsername($email, $username) {
 		try {
-			$registration =  $this->registrationMapper->find($email);//if not found DB will throw a exception
-			$this->registrationMapper->delete($registration);
+			$registrationsByMail = $this->registrationMapper->find($email);
+			// 有多筆同Email資料
+			foreach ($registrationsByMail as $registration) {
+				if ($registration->getUsername() === $username) {
+					$this->registrationMapper->delete($registration);
+				}
+			}
 		} catch (DoesNotExistException $e) {
 		}
 	}

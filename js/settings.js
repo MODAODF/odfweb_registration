@@ -1,10 +1,17 @@
 $(document).ready(function() {
   function saveSettings() {
     OC.msg.startSaving('#registration_settings_msg');
+
+    let data = $('#registration_settings_form').serializeArray();
+    const allowDuplicateEmail = $('#allow_duplicate_email').is(':checked')
+    if (allowDuplicateEmail) {
+      data.push({name: 'allow_duplicate_email', value: allowDuplicateEmail});
+    }
+
     $.ajax({
       url: OC.generateUrl('/apps/ndcregistration/settings'),
       type: 'POST',
-      data: $('#registration_settings_form').serialize(),
+      data: $.param(data),
       success: function(data){
         OC.msg.finishedSaving('#registration_settings_msg', data);
       },
@@ -34,7 +41,7 @@ $(document).ready(function() {
   }
 
   $('input#registration_enabled').change(saveEnableStatus);
-  $('#registration_settings_form').change(saveSettings);
+  $('#registration_settings_form, #allow_duplicate_email').change(saveSettings);
   $('#registration').keypress(function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
