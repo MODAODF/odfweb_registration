@@ -2,7 +2,7 @@
 
 app_name=ndcregistration
 target_dir=$(CURDIR)/build
-app_version=0.1.2
+app_version=0.1.3
 
 clean:
 	rm -fr $(target_dir)
