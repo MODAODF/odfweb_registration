@@ -19,25 +19,21 @@
 
 
 特點：
-- 管理這可以指定新註冊者預設的群組
+- 管理者可以指定新註冊者預設的群組
 - 管理者可以限制電子郵件域名
 - 會以電子郵件通知管理者有新使用者註冊
 - 可設定新申請者是否需管理者審核
 - 可大量匯入帳號
 
 		]]></description>
-	<version>0.1.3</version>
+	<version>1.0.1</version>
 	<licence>agpl</licence>
 	<author mail="develop@ossii.com.tw" homepage="https://ossii.com.tw">Develop</author>
 	<category>security</category>
 	<category>tools</category>
 	<website>https://ossii.com.tw</website>
 	<dependencies>
-		<database>sqlite</database>
-		<database>pgsql</database>
-		<database min-version="5.5">mysql</database>
-		<owncloud min-version="9.0" max-version="11"/>
-		<nextcloud min-version="20" max-version="20"/>
+		<nextcloud min-version="24" max-version="24"/>
 	</dependencies>
 	<settings>
 		<admin>OCA\NdcRegistration\Settings\RegistrationSettings</admin>
