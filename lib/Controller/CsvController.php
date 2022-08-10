@@ -93,7 +93,7 @@ class CsvController extends Controller {
 
 			$fileName = $csvFile['tmp_name'];
 			// 必須是純文字格式
-			if (mime_content_type($fileName) != 'text/plain') {
+			if (mime_content_type($fileName) !== 'text/plain' && mime_content_type($fileName) !== 'text/csv') {
 				throw new \Exception('檔案不是 CSV 格式');
 			}
 
