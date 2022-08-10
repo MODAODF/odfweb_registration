@@ -1,10 +1,7 @@
 <?php
 \OCP\Util::addStyle('ndcregistration', 'style');
 \OCP\Util::addScript('ndcregistration', 'form');
-if (\OCP\Util::getVersion()[0] >= 12) {
-	\OCP\Util::addStyle('core', 'guest');
-}
-?><form action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('registration.register.createAccount', ['token'=>$_['token']])) ?>" method="post">
+?><form id="formCreateAccount" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('registration.register.createAccount', ['token'=>$_['token']])) ?>" method="post">
 	<input type="hidden" name="requesttoken" value="<?php p($_['requesttoken']) ?>" />
 	<fieldset>
 		<?php if (!empty($_['errormsgs'])) {?>
@@ -37,7 +34,7 @@ if (\OCP\Util::getVersion()[0] >= 12) {
 			<label for="password" class="infield"><?php p($l->t('Password')); ?></label>
 			<img id="password-icon" class="svg" src="<?php print_unescaped(image_path('', 'actions/password.svg')); ?>" alt=""/>
 			<?php if (\OC::$server->getConfig()->getAppValue('core', 'vendor', '') === 'nextcloud') { ?>
-			<input id="show" name="show" type="checkbox">
+			<input id="show" name="show" type="checkbox" hidden>
 			<label id="show-password" style="display: inline;" for="show"></label>
 			<?php } else { ?>
 			<input type="checkbox" id="showadminpass" name="showadminpass">

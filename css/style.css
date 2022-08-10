@@ -1,8 +1,4 @@
-#body-login #email, #body-login, #username, #body-login, #password, #confpassword {
-	width: calc(100% - 56px);
-	padding-left: 36px;
-}
-#email-icon, #username-icon, #password-icon {
+fieldset p .svg {
 	position: absolute;
 	left: 16px;
 	top: 22px;
@@ -10,24 +6,47 @@
 	filter: alpha(opacity=30);
 	opacity: .3;
 }
-#username-icon {
-	top: 17px;
+
+#formCreateAccount .svg#email-icon {
+	top: 27px;
 }
 
-input[type="submit"] {
-	width: calc(100% - 10px) !important;
+#formCreateAccount input[type="submit"],
+#formValidateEmail input[type="submit"]
+{
+	background-color: #ECECFF;
 }
 
-.msg {
-	color: blue;
-	margin: 5px;
+#formCreateAccount input[type="submit"]:hover,
+#formCreateAccount input[type="submit"]:focus,
+#formValidateEmail input[type="submit"]:hover,
+#formValidateEmail input[type="submit"]:focus
+{
+	padding: 10px 20px;
+	background-image: linear-gradient(40deg, #ececff 0%, #ffffff 100%);
+}
+
+#formCreateAccount p input:not([disabled]):active,
+#formValidateEmail p input:not([disabled]):active
+{
+	background-color: #fff ;
+}
+
+#formCreateAccount p input:not(#show) {
+	padding-left: 35px;
+}
+
+#formCreateAccount p input[disabled]#username,
+#formCreateAccount p input[disabled]#email,
+#formValidateEmail p input[disabled]#username,
+#formValidateEmail p input[disabled]#email
+{
+	color: black;
+	font-weight: normal;
+	background-color: lightgray;
+	border-color: black;
 }
 
 .msg a {
-	color: blue;
 	text-decoration: underline;
-}
-
-.groupofone {
-	position: relative;
 }
