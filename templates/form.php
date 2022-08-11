@@ -1,7 +1,7 @@
 <?php
 \OCP\Util::addStyle('ndcregistration', 'style');
 \OCP\Util::addScript('ndcregistration', 'form');
-?><form id="formCreateAccount" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('registration.register.createAccount', ['token'=>$_['token']])) ?>" method="post">
+?><form id="formCreateAccount" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.register.createAccount', ['token'=>$_['token']])) ?>" method="post">
 	<input type="hidden" name="requesttoken" value="<?php p($_['requesttoken']) ?>" />
 	<fieldset>
 		<?php if (!empty($_['errormsgs'])) {?>
