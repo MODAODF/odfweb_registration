@@ -33,6 +33,7 @@ OC.L10N.register(
     "Default group that all registered users belong" : "注册的用户所属的默认群组",
     "Require admin approval?" : "是否要求管理员批准？",
     "Please re-enter a valid email address" : "请重新输入正确的电子邮件地址",
-    "You will receive an email with a verification link" : "您将会接收到一条带有验证链接的电子邮件"
+    "You will receive an email with a verification link" : "您将会接收到一条带有验证链接的电子邮件",
+    "Email Verification" : "电子邮件验证"
 },
 "nplurals=1; plural=0;");

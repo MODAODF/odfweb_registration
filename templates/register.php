@@ -16,10 +16,10 @@ if ($_['entered']): ?>
 					<input type="email" name="email" id="email" placeholder="<?php p($l->t('Email')); ?>" value="" required autofocus />
 					<label for="email" class="infield"><?php p($l->t('Email')); ?></label>
 				</p>
-				<center>
+				<div style="text-align: center;">
 					<?php p($l->t('Click the picture to change the verification code')); ?><br>
-					<img id="captcha" style="cursor:pointer" src="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.captcha.imageCode')) ?>">
-				</center>
+					<img id="captcha" style="cursor:pointer" src="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.captcha.imageCode')) ?>" alt="<?php p($l->t('Click the picture to change the verification code')); ?>">
+				</div>
 				<p>
 					<input type="text" name="captcha" id="checkcaptcha" placeholder="<?php p($l->t('Text in picture')); ?>"" value="" required>
 					<label for="checkcaptcha" class="infield"><?php p($l->t('Text in picture')); ?></label>
@@ -32,24 +32,25 @@ if ($_['entered']): ?>
 <?php else: ?>
 	<form id="formValidateEmail" action="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.register.validateEmail')) ?>" method="post" autocomplete="off">
 		<fieldset>
+			<legend><?php p($l->t('Email Verification')); ?></legend>
 			<?php if ($_['errormsg']): ?>
 			<ul class="error">
 				<li><?php p($_['errormsg']); ?></li>
 				<li><?php p($l->t('Please re-enter a valid email address')); ?></li>
 			</ul>
 			<?php else: ?>
-			<center>
+			<div style="text-align: center;">
 				<?php p($l->t('You will receive an email with a verification link')); ?>
-			</center>
+			</div>
 			<?php endif; ?>
 			<p>
 				<input type="email" name="email" id="email" placeholder="<?php p($l->t('Email')); ?>" value="" required autofocus />
 				<label for="email" class="infield"><?php p($l->t('Email')); ?></label>
 			</p>
-			<center>
+			<div style="text-align: center;">
 				<?php p($l->t('Click the picture to change the verification code')); ?><br>
-				<img id="captcha" style="cursor:pointer" src="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.captcha.imageCode')) ?>">
-			</center>
+				<img id="captcha" style="cursor:pointer" src="<?php print_unescaped(\OC::$server->getURLGenerator()->linkToRoute('ndcregistration.captcha.imageCode')) ?>" alt="<?php p($l->t('Click the picture to change the verification code')); ?>">
+			</div>
 			<p>
 				<input type="text" name="captcha" id="checkcaptcha" placeholder="<?php p($l->t('Text in picture')); ?>"" value="" required>
 				<label for="checkcaptcha" class="infield"><?php p($l->t('Text in picture')); ?></label>
